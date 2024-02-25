@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Prediction</title>
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light gray background */
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: skyblue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Features for Prediction</h2>
+    <form action="/predict" method="post">
+        <label for="time_of_incident">Time of Incident:</label>
+        <input type="text" id="time_of_incident" name="time_of_incident"><br><br>
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude"><br><br>
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude"><br><br>
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
