@@ -5,7 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load your trained model
-model = joblib.load('model_rf_3_0.joblib')
+model = joblib.load('model_knn_1.joblib')
 
 # HTML form
 html_form = '''
