@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Prediction</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Enter Features for Prediction</h2>
+        <form action="/predict" method="post">
+            <label for="time_of_incident">Time of Incident:</label>
+            <input type="text" id="time_of_incident" name="time_of_incident"><br><br>
+            <label for="longitude">Longitude:</label>
+            <input type="text" id="longitude" name="longitude"><br><br>
+            <label for="latitude">Latitude:</label>
+            <input type="text" id="latitude" name="latitude"><br><br>
+            <input type="submit" value="Predict">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,51 +1,36 @@
-from flask import Flask, request, jsonify, render_template_string
-import joblib
+from flask import Flask, render_template, request
 import numpy as np
+import joblib
 
 app = Flask(__name__)
 
 # Load your trained model
-model = joblib.load('model_knn_1.joblib')
+model = joblib.load('model_knn_1_ws.joblib')
 
-# HTML form
-html_form = '''
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Model Prediction</title>
-</head>
-<body>
-    <h2>Enter Features for Prediction</h2>
-    <form action="/predict" method="post">
-        <label for="feature1">Feature 1:</label>
-        <input type="text" id="feature1" name="feature1"><br><br>
-        <label for="feature2">Feature 2:</label>
-        <input type="text" id="feature2" name="feature2"><br><br>
-        <label for="feature3">Feature 3:</label>
-        <input type="text" id="feature3" name="feature3"><br><br>
-        <input type="submit" value="Predict">
-    </form>
-</body>
-</html>
-'''
-
+# Define routes
 @app.route('/', methods=['GET'])
 def home():
-    return render_template_string(html_form)
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
     # Extract features from the form
-    feature1 = request.form['feature1']
-    feature2 = request.form['feature2']
-    feature3 = request.form['feature3']
-    
-    # Convert inputs to float and reshape for the model
-    features = np.array([[float(feature1), float(feature2), float(feature3)]])
-    prediction = model.predict(features)
-    
-    # Return prediction result in a new HTML page
-    return f'<h2>Prediction: {prediction[0]}</h2>'
+    feature1 = request.form['time_of_incident']
+    feature2 = request.form['longitude']
+    feature3 = request.form['latitude']
+
+    try:
+        # Convert inputs to float and reshape for the model
+        features = np.array([[float(feature1), float(feature2), float(feature3)]])
+        prediction = model.predict(features)
+        prediction_value = prediction[0] if len(prediction) > 0 else None
+        
+        # Return prediction result in a new HTML page
+        return f'<h2>Prediction: {prediction_value}</h2>'
+    except ValueError:
+        # Return error message if conversion fails
+        return '<h2>Error: Please enter valid numerical values.</h2>'
+
 
 if __name__ == '__main__':
     app.run(debug=True)
